@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MCM Audio Player</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#00ff80" />
+  <link rel="icon" href="icons/mcm-icon-192.svg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="player" class="app">
+    <header class="topbar">
+      <div class="logo-wrap">
+        <div class="logo">MCM</div>
+        <div class="title">MCM Audio Player</div>
+      </div>
+      <div class="actions">
+        <input id="fileInput" type="file" accept="audio/*" multiple style="display:none" />
+        <button id="addFilesBtn" class="btn small">Add Files</button>
+        <button id="installBtn" class="btn small" style="display:none">Install</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="visualizer-card">
+        <div class="artwork" id="artwork">MCM</div>
+        <canvas id="visualizer" width="600" height="140"></canvas>
+      </section>
+
+      <section class="controls-card">
+        <div class="transport">
+          <button id="prevBtn" class="ctrl">⏮</button>
+          <button id="playBtn" class="play">▶</button>
+          <button id="nextBtn" class="ctrl">⏭</button>
+        </div>
+
+        <div class="sliders-row">
+          <div class="slider-group">
+            <label>Gain <span id="gainVal">1.00</span></label>
+            <input id="gain" type="range" min="0.1" max="3" step="0.01" value="1" />
+          </div>
+          <div class="slider-group">
+            <label>Bass <span id="bassVal">0</span> dB</label>
+            <input id="bass" type="range" min="-15" max="15" step="0.5" value="0" />
+          </div>
+          <div class="slider-group">
+            <label>Treble <span id="trebleVal">0</span> dB</label>
+            <input id="treble" type="range" min="-15" max="15" step="0.5" value="0" />
+          </div>
+        </div>
+
+        <div class="preset-row" id="presetRow"></div>
+      </section>
+
+      <section class="playlist-card">
+        <div class="playlist-header">Playlist</div>
+        <ul id="playlist" class="playlist"></ul>
+      </section>
+    </main>
+
+    <footer class="footer">MCM Audio Player — Dark Green Edition</footer>
+  </div>
+
+  <audio id="audio" crossorigin="anonymous"></audio>
+
+  <script src="main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js').catch(()=>{});
+    }
+  </script>
+</body>
+</html>
